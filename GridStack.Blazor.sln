@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridStack.Blazor", "GridSta
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Files", "_Files", "{1A376D21-335E-4D44-9CD8-4E584BB61359}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		global.json = global.json
 		LICENSE = LICENSE
 		pack.sh = pack.sh
