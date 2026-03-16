@@ -21,6 +21,10 @@ public sealed partial class GsGrid : IAsyncDisposable
 
     [Parameter] public bool SetUpDragIn { get; set; } = false;
 
+    [Parameter] public string Id { get; set; } = Guid.NewGuid().ToString();
+
+    [Parameter] public bool MultipleGrids { get; set; } = false;
+
     [Parameter] public GsSetupDragInSettings? SetUpDragInOptions { get; set; }
 
     [Parameter] public string? Style { get; set; }
@@ -71,7 +75,14 @@ public sealed partial class GsGrid : IAsyncDisposable
             _interopRef = DotNetObjectReference.Create(this);
             _optionsInteropRef = DotNetObjectReference.Create(Options);
 
-            _instance = await _module.InvokeAsync<IJSObjectReference>("init", Options, _interopRef, _optionsInteropRef);
+            if (MultipleGrids)
+            {
+                _instance = await _module.InvokeAsync<IJSObjectReference>("addGrid", Id, Options, _interopRef, _optionsInteropRef);
+            }
+            else
+            {
+                _instance = await _module.InvokeAsync<IJSObjectReference>("init", Options, _interopRef, _optionsInteropRef);
+            }
 
             if (SetUpDragIn)
             {

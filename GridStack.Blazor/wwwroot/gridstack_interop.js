@@ -8,6 +8,74 @@ export function init(gridOptions, interopReference, optionsInteropReference) {
 
     const grid = window.GridStack.init(gridOptions);
 
+    setUpGrid(grid, gridOptions, interopReference, optionsInteropReference);
+
+    return grid;
+}
+
+export function addGrid(parentElementId, gridOptions, interopReference, optionsInteropReference) {
+
+    if (gridOptions.acceptWidgets === 'function') {
+        gridOptions.acceptWidgets = () => allowDrop;
+    }
+
+    const parentElement = document.getElementById(parentElementId);
+
+    const grid = window.GridStack.addGrid(parentElement, gridOptions);
+
+    setUpGrid(grid, gridOptions, interopReference, optionsInteropReference);
+
+    return grid;
+}
+
+/**
+ * Sets up drag in for elements rendered 
+ */
+export function setupDragIn(dragIn, draggableOptions, widgets, interopReference, gridOptions, gridOptionsInteropReference) {
+
+    const options = {
+        // While drag in item is being dragged (every pixel) (Event, GsUiData)
+        drag: async (event, ui) => {
+            await interopReference.invokeMethodAsync("OnDragFired", ui);
+        },
+        helper: 'clone',
+        // When drag in item is starting to be dragged (Event, GsUiData)
+        start: async (event, ui) => {
+            await acceptWidgets(gridOptions, gridOptionsInteropReference, event.target);
+            await interopReference.invokeMethodAsync("OnStartFired", ui);
+        },
+        // When drag in item is released (Event)
+        stop: async (event) => {
+            await interopReference.invokeMethodAsync("OnStopFired");
+        }
+    };
+
+    if (draggableOptions) {
+        if (draggableOptions.appendTo) {
+            options.appendTo = draggableOptions.appendTo;
+        }
+        if (draggableOptions.cancel) {
+            options.cancel = draggableOptions.cancel;
+        }
+        if (draggableOptions.handle) {
+            options.handle = draggableOptions.handle;
+        }
+        if (draggableOptions.pause) {
+            options.pause = draggableOptions.pause;
+        }
+        if (draggableOptions.scroll) {
+            options.scroll = draggableOptions.scroll;
+        }
+    }
+
+    //const options = {
+    //    helper: 'clone'
+    //};
+
+    window.GridStack.setupDragIn(dragIn, options, widgets);
+}
+
+function setUpGrid(grid, gridOptions, interopReference, optionsInteropReference) {
     /*
      * events (https://github.com/gridstack/gridstack.js/blob/master/doc/README.md#events)
      */
@@ -107,89 +175,33 @@ export function init(gridOptions, interopReference, optionsInteropReference) {
         return gsItemHTMLElementToWidgetData(grid.addWidget(widgetOptions));
     }
 
-    grid.getGridItemsForBlazor = () =>
-    {
+    grid.getGridItemsForBlazor = () => {
         return grid.getGridItems().map(i => { return gsItemHTMLElementToWidgetData(i) });
     }
 
-    grid.makeWidgetById = (id) =>
-    {
+    grid.makeWidgetById = (id) => {
         return gsItemHTMLElementToWidgetData(grid.makeWidget(getWidgetById(id)));
     }
 
-    grid.movableById = (id, val) =>
-    {
+    grid.movableById = (id, val) => {
         grid.movable(getWidgetById(id), val);
     }
 
-    grid.removeWidgetById = (id, removeDOM, triggerEvent) =>
-    {
+    grid.removeWidgetById = (id, removeDOM, triggerEvent) => {
         grid.removeWidget(getWidgetById(id), removeDOM, triggerEvent);
     }
 
-    grid.resizableById = (id, val) =>
-    {
+    grid.resizableById = (id, val) => {
         grid.resizable(getWidgetById(id), val);
     }
 
-    grid.resizeToContentById = (id, useAttrSize) => 
-    {
+    grid.resizeToContentById = (id, useAttrSize) => {
         grid.resizeToContent(getWidgetById(id), useAttrSize);
     }
 
-    grid.updateById = (id, opts) =>
-    {
+    grid.updateById = (id, opts) => {
         grid.update(getWidgetById(id), normalizeOptions(opts));
     }
-
-    return grid;
-}
-
-/**
- * Sets up drag in for elements rendered 
- */
-export function setupDragIn(dragIn, draggableOptions, widgets, interopReference, gridOptions, gridOptionsInteropReference) {
-
-    const options = {
-        // While drag in item is being dragged (every pixel) (Event, GsUiData)
-        drag: async (event, ui) => {
-            await interopReference.invokeMethodAsync("OnDragFired", ui);
-        },
-        helper: 'clone',
-        // When drag in item is starting to be dragged (Event, GsUiData)
-        start: async (event, ui) => {
-            await acceptWidgets(gridOptions, gridOptionsInteropReference, event.target);
-            await interopReference.invokeMethodAsync("OnStartFired", ui);
-        },
-        // When drag in item is released (Event)
-        stop: async (event) => {
-            await interopReference.invokeMethodAsync("OnStopFired");
-        }
-    };
-
-    if (draggableOptions) {
-        if (draggableOptions.appendTo) {
-            options.appendTo = draggableOptions.appendTo;
-        }
-        if (draggableOptions.cancel) {
-            options.cancel = draggableOptions.cancel;
-        }
-        if (draggableOptions.handle) {
-            options.handle = draggableOptions.handle;
-        }
-        if (draggableOptions.pause) {
-            options.pause = draggableOptions.pause;
-        }
-        if (draggableOptions.scroll) {
-            options.scroll = draggableOptions.scroll;
-        }
-    }
-
-    //const options = {
-    //    helper: 'clone'
-    //};
-
-    window.GridStack.setupDragIn(dragIn, options, widgets);
 }
 
 /**

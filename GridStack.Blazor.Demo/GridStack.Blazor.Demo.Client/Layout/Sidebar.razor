@@ -5,6 +5,7 @@
         <button @onclick="@OnDemo3">Demo 3 (Responsive)</button>
         <button @onclick="@OnDemo4">Demo 4 (Responsive with Breakpoints)</button>
         <button @onclick="@OnDemo5">Demo 5 (Drag in widget)</button>
+        <button @onclick="@OnDemo6">Demo 6 (Multiple grids)</button>
     </div>
 </div>
 
@@ -35,5 +36,10 @@
     private void OnDemo5()
     {
         NavManager.NavigateTo("/demo5");
+    }
+
+    private void OnDemo6()
+    {
+        NavManager.NavigateTo("/demo6");
     }
 }
