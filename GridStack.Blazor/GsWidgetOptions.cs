@@ -94,6 +94,4 @@ public sealed record GsWidgetOptions
     // TODO - sizeToContent
 
     // TODO - resizeToContentParent
-
-    // TODO - subGridOpts
 }

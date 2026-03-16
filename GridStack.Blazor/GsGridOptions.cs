@@ -14,7 +14,7 @@ public sealed record GsGridOptions
     /// <list type="bullet">true: will accept HTML elements having 'grid-stack-item' as class attribute</list>
     /// <list type="bullet">false: will not accept any external widgets</list>
     /// <list type="bullet">string: explicit class name to accept instead of default</list>
-    /// <list type="bullet">function: this is not supported here. To reject a widget remove the widget using the <see cref="GsDraggableOptions.OnStart"/> callback.</list>
+    /// <list type="bullet">function: set to 'function', and fill out the accept widget callback function.</list>
     /// </summary>
     [JsonPropertyName("acceptWidgets")]
     public string? AcceptWidgets { get; set; }
@@ -233,18 +233,9 @@ public sealed record GsGridOptions
     [JsonPropertyName("styleInHead")]
     public bool? StyleInHead { get; set; }
 
-    /// <summary>
-    /// List of differences in options for automatically created sub-grids under us (inside our grid-items).
-    /// </summary>
-    [JsonPropertyName("subGridOpts")]
-    public GsGridOptions? SubGridOpts { get; set; }
+    // TODO - subGridOpts
 
-    /// <summary>
-    /// Enable/disable the creation of sub-grids on the fly by dragging items completely over others (nest) vs partially (push).
-    /// Forces DDDragOpt.pause=true to accomplish that..
-    /// </summary>
-    [JsonPropertyName("subGridDynamic")]
-    public bool? SubGridDynamic { get; set; }
+    // TODO - subGridDynamic
 
     [JSInvokable]
     public bool AcceptWidgetCallbackFired(GsHtmlElement el)
