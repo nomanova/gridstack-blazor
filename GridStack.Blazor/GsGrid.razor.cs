@@ -104,18 +104,28 @@ public sealed partial class GsGrid : IAsyncDisposable
         _interopRef?.Dispose();
         _interopRef = null;
 
+        _optionsInteropRef?.Dispose();
+        _optionsInteropRef = null;
+
         _draggableInteropRef?.Dispose();
         _draggableInteropRef = null;
 
-        if (_instance != null)
+        try
         {
-            await _instance.DisposeAsync();
-            _instance = null;
-        }
+            if (_instance != null)
+            {
+                await _instance.DisposeAsync();
+            }
 
-        if (_module != null)
+            if (_module != null)
+            {
+                await _module.DisposeAsync();
+            }
+        }
+        catch (JSDisconnectedException) { }
+        finally
         {
-            await _module.DisposeAsync();
+            _instance = null;
             _module = null;
         }
     }
