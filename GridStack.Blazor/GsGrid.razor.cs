@@ -19,11 +19,11 @@ public sealed partial class GsGrid : IAsyncDisposable
 
     [Parameter] public EventCallback<GsUIDataEventArgs> OptionsOnDrag { get; set; }
 
-    [Parameter] public bool SetUpDragIn { get; set; } = false;
+    [Parameter] public bool SetUpDragIn { get; set; }
 
     [Parameter] public string Id { get; set; } = Guid.NewGuid().ToString();
 
-    [Parameter] public bool MultipleGrids { get; set; } = false;
+    [Parameter] public bool MultipleGrids { get; set; }
 
     [Parameter] public GsSetupDragInSettings? SetUpDragInOptions { get; set; }
 
@@ -61,7 +61,7 @@ public sealed partial class GsGrid : IAsyncDisposable
     private DotNetObjectReference<GsGridOptions>? _optionsInteropRef;
     private DotNetObjectReference<GsDraggableOptions>? _draggableInteropRef;
 
-    private const string PackageName = "Itemzen.GridStack.Blazor";
+    private const string PackageName = "Nomanova.GridStack.Blazor";
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

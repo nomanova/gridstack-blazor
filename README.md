@@ -1,4 +1,4 @@
-# Itemzen.GridStack.Blazor
+# Nomanova.GridStack.Blazor
 
 Blazor wrapper for the [gridstack.js](https://gridstackjs.com/) library.
 
@@ -10,7 +10,7 @@ from which this wrapper took inspiration.
 ### NuGet
 
 ```bash
-dotnet add package Itemzen.GridStack.Blazor
+dotnet add package Nomanova.GridStack.Blazor
 ```
 
 The version of the nuget package matches the gridstack version against which the wrapper was created,
@@ -69,8 +69,8 @@ The wrapper adds two components: `GsGrid` and `GsWidget`.
 </GsGrid>
 ```
 
-The widgets can be added to the grid using markup (as shown above), or programatically
+The widgets can be added to the grid using markup (as shown above) or programatically
 using the GsGrid API.
 
-The [demo project](https://github.com/itemzen/gridstack-blazor/tree/main/GridStack.Blazor.Demo) contains additional details.
+The [demo project](https://github.com/nomanova/gridstack-blazor/tree/main/GridStack.Blazor.Demo) contains additional details.
 

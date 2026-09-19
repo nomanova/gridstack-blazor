@@ -6,20 +6,20 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <VersionPrefix>12.4.0</VersionPrefix>
-        <Authors>Itemzen</Authors>
-        <Copyright>2026 by Itemzen</Copyright>
-        <PackageId>Itemzen.GridStack.Blazor</PackageId>
+        <Authors>Nomanova</Authors>
+        <Copyright>2026 by Nomanova</Copyright>
+        <PackageId>Nomanova.GridStack.Blazor</PackageId>
         <PublishRelease>true</PublishRelease>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <OutputType>Library</OutputType>
         <IsPackable>true</IsPackable>
         <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-        <PackageProjectUrl>https://github.com/itemzen/gridstack-blazor</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/nomanova/gridstack-blazor</PackageProjectUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageTags>gridstack.js;Blazor;dotnet</PackageTags>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <SourceLinkCreate>true</SourceLinkCreate>
-        <SourceLinkOriginUrl>https://github.com/itemzen/gridstack-blazor</SourceLinkOriginUrl>
+        <SourceLinkOriginUrl>https://github.com/nomanova/gridstack-blazor</SourceLinkOriginUrl>
         <NoWarn>1591</NoWarn>
     </PropertyGroup>
 
