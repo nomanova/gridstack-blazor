@@ -13,8 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="wwwroot\lib\gridstack-all.js" />
-        <None Include="wwwroot\lib\gridstack.min.css" />
+      <Folder Include="wwwroot\lib\" />
     </ItemGroup>
-    
+
 </Project>

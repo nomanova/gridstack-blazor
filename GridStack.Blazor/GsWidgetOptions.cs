@@ -72,6 +72,12 @@ public sealed record GsWidgetOptions
     public bool? NoMove { get; set; }
 
     /// <summary>
+    /// Print options for this widget.
+    /// </summary>
+    [JsonPropertyName("print")]
+    public GsPrintOptions? Print { get; set; }
+
+    /// <summary>
     /// Same as noMove+noResize but also prevents being pushed by other
     /// widgets or api (default: undefined = un-constrained)
     /// Note: this property does not seem to have effect except when NoMove=true and NoResize=true as well.

@@ -188,11 +188,24 @@ public sealed record GsGridOptions
     /// </summary>
     [JsonPropertyName("placeholderText")]
     public string? PlaceholderText { get; set; }
-    
-    // TODO - resizable
-    
+
+    /// <summary>
+    /// Print mode for the grid (default?: 'flow'). 
+    /// <para>- 'flow': items auto-size their height and flow naturally across pages without slicing.</para>
+    /// <para>- 'exact': uses CSS grid to perfectly respect visual coordinates and dimensions, but may slice tall items or push entire rows to the next page.</para> 
+    /// </summary>
+    [Obsolete("No longer supported starting version 13.2.0")]
+    [JsonPropertyName("printMode")]
+    public string? PrintMode { get; set; }
+
+    /// <summary>
+    /// Allows to override UI resizable options. Default is { handles: 'se', autoHide: true on desktop, false on mobile };
+    /// </summary>
+    [JsonPropertyName("resizable")]
+    public GsResizableOptions? Resizable { get; set; }
+
     // TODO - removable
-    
+
     // TODO - removableOptions
 
     /// <summary>

@@ -1,11 +1,28 @@
 @page "/demo5"
 @using Microsoft.AspNetCore.Components.Web
 
-<PageTitle>Demo 5: Drag in widget</PageTitle>
+<style>
+    .ui-resizable-e {
+        background-color: black;
+        color: white;
+    }
+
+    .ui-resizable-w {
+        background-color: black;
+        color: white;
+    }
+
+    .ui-resizable-s {
+        background-color: black;
+        color: white;
+    }
+</style>
+
+<PageTitle>Demo 5: Drag in widget & changing resize handle</PageTitle>
 
 <div class="page">
     <div class="title">
-        <h3>Demo 5: Drag in widget</h3>
+        <h3>Demo 5: Drag in widget & changing resize handle</h3>
     </div>
     
     <div class="header">
@@ -71,7 +88,11 @@
             ]
         },
         AcceptWidgets = "function",
-        AcceptWidgetCallback = AcceptWidgets
+        AcceptWidgetCallback = AcceptWidgets,
+        Resizable = new()
+        {
+            Handles = "nw,e,se,w,s,sw",
+        }
     };
 
     private readonly GsSetupDragInSettings _dragInSettings = new()
@@ -82,6 +103,10 @@
     private GsGrid _grid = null!;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+    }
+
+    private async Task OnResize(GsWidgetEventArgs args)
     {
     }
 
