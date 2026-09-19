@@ -1,0 +1,69 @@
+#
+# To publish a new version
+# git tag v13.2.0-r1
+# git push origin v13.2.0-r1
+#
+# To re-assign a tag to a different commit (e.g. on failed build),
+# delete it and re-run the previous commands:
+# git tag -d v1.2.3
+# git push origin :refs/tags/v1.2.3
+#
+name: Publish
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write  # enable GitHub OIDC token issuance
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Tag to version
+        shell: bash
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          VERSION="${TAG#v}"
+
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "Invalid version tag: $TAG"
+            echo "Expected format: v1.2.3 or v1.2.3-preview.1"
+            exit 1
+          fi
+
+          echo "PACKAGE_VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - name: Pack
+        run: >
+          dotnet pack ./GridStack.Blazor/GridStack.Blazor.csproj
+          -c Release
+          -o ./artifacts
+          -no-restore
+          /p:Version=${{ env.PACKAGE_VERSION }}
+
+      - name: NuGet login
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      - name: NuGet push
+        run: >
+          dotnet nuget push "./artifacts/*.nupkg"
+          --api-key ${{steps.login.outputs.NUGET_API_KEY}}
+          --source https://api.nuget.org/v3/index.json
+          --skip-duplicate

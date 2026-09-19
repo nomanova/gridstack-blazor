@@ -10,7 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Files", "_Files", "{1A376D
 		.gitignore = .gitignore
 		global.json = global.json
 		LICENSE = LICENSE
-		pack.sh = pack.sh
 		README.md = README.md
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
