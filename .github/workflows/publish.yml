@@ -52,7 +52,7 @@ jobs:
           dotnet pack ./GridStack.Blazor/GridStack.Blazor.csproj
           -c Release
           -o ./artifacts
-          -no-restore
+          --no-restore
           /p:Version=${{ env.PACKAGE_VERSION }}
 
       - name: NuGet login
