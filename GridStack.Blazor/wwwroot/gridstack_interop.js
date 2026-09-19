@@ -147,9 +147,6 @@ function setUpGrid(grid, gridOptions, interopReference, optionsInteropReference)
     // Called before the user starts resizing an item (Event, GridItemHTMLElement)
     grid.on("resizestart",
         async (event, el) => {
-            console.log("target", event.target);
-            console.log("class", event.target.className);
-            console.log("element", el);
             await interopReference.invokeMethodAsync("ResizeStartFired", gsItemHTMLElementToWidgetData(el));
         });
 
@@ -157,19 +154,6 @@ function setUpGrid(grid, gridOptions, interopReference, optionsInteropReference)
     // (Event, GridItemHTMLElement)
     grid.on("resize",
         async (event, el) => {
-            console.log(
-                "resize",
-                el.getAttribute("gs-x"),
-                el.getAttribute("gs-w")
-            );
-
-            console.log(
-                "node",
-                el.gridstackNode?.x,
-                el.gridstackNode?.w
-            );
-            console.log("target", event.target);
-
             await interopReference.invokeMethodAsync("ResizeFired", gsItemHTMLElementToWidgetData(el));
         });
 
