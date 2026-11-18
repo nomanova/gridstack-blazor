@@ -60,9 +60,10 @@ public sealed partial class GsGrid : IAsyncDisposable
     private DotNetObjectReference<GsGrid>? _interopRef;
     private DotNetObjectReference<GsGridOptions>? _optionsInteropRef;
     private DotNetObjectReference<GsDraggableOptions>? _draggableInteropRef;
+    private bool _disposed;
 
     private const string PackageName = "Nomanova.GridStack.Blazor";
-    
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -71,6 +72,12 @@ public sealed partial class GsGrid : IAsyncDisposable
         {
             _module ??= await JsRuntime.InvokeAsync<IJSObjectReference>(
                 "import", $"./_content/{PackageName}/gridstack_interop.js");
+
+            if (_disposed)
+            {
+                await DisposeAsync();
+                return;
+            }
 
             _interopRef = DotNetObjectReference.Create(this);
             _optionsInteropRef = DotNetObjectReference.Create(Options);
@@ -101,6 +108,8 @@ public sealed partial class GsGrid : IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
+        _disposed = true;
+
         _interopRef?.Dispose();
         _interopRef = null;
 
